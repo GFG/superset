@@ -5,6 +5,14 @@ services:
       context: .
       args:
         SUPERSET_VERSION: 0.28.1
-    image: amancevice/superset
+    container_name: superset
+    image: superset
+    restart: always
     ports:
-    - 8088:8088
+      - 8080:8088
+    environment:
+      - SUPERSET_HOME=/var/lib/superset/
+      - GUNICORN_TIMEOUT=180
+    volumes:
+      - ${PWD}/config:/etc/superset/
+      - ${PWD}/data:/var/lib/superset/
